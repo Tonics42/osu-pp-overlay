@@ -1,0 +1,45 @@
+name: Release
+
+# Builds the Windows installer + portable zip on GitHub and attaches them to the release.
+# Push a tag like v1.0.1 (or run manually with a tag) to publish.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag (e.g. v1.0.0)
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx electron-builder --win --publish never
+
+      - name: Publish release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.event.inputs.tag || github.ref_name }}
+        run: |
+          files=(dist/*.exe dist/*-win-x64.zip)
+          notes=".github/release-notes/${TAG}.md"
+          if [ ! -f "$notes" ]; then notes=$(mktemp); echo "osu! PP Overlay ${TAG}" > "$notes"; fi
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release upload "$TAG" "${files[@]}" --clobber
+          else
+            gh release create "$TAG" "${files[@]}" --title "osu! PP Overlay ${TAG#v}" --notes-file "$notes"
+          fi
