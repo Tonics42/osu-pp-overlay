@@ -1,0 +1,11 @@
+node_modules/
+dist/
+
+# local runtime data (source checkout keeps these next to the code)
+tosu/
+config.json
+overlay.log
+
+# recordings / scratch
+*.mp4
+start.vbs

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>PP Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <section id="panel" class="panel hidden" aria-label="PP калькулятор">
+        <div class="pill" id="pill" title="Задержи курсор, чтобы развернуть">
+            <span class="dot" id="pillDot"></span>
+            <span class="stars small" id="pillStars">★ –</span>
+            <span class="pill-mods" id="pillMods">NM</span>
+            <span class="pill-acc" id="pillAcc">100%</span>
+            <span class="pill-pp"><b id="pillPP">–</b> pp</span>
+        </div>
+
+        <header class="head" id="drag">
+            <span class="dot" id="dot"></span>
+            <span class="title">PP калькулятор</span>
+            <span class="ruleset" id="ruleset">osu!</span>
+            <button class="icon-btn pin" id="pin" title="Закрепить развёрнутым">
+                <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M16 3a1 1 0 0 1 .7 1.7L15.4 6l2.6 5.2 1.3-1.3a1 1 0 1 1 1.4 1.4l-3 3-1.4-1.4-2.8 2.8V21l-2-2-3.6 3.6a1 1 0 0 1-1.4-1.4L10 17.6l-2-2h5.3l2.8-2.8-1.4-1.4-5.2-2.6L8.2 10a1 1 0 0 1-1.4-1.4l3-3 .1-.1A1 1 0 0 1 16 3Z"/></svg>
+            </button>
+        </header>
+
+        <div class="map">
+            <div class="map-title" id="mapTitle">Карта не выбрана</div>
+            <div class="map-sub" id="mapSub"></div>
+            <div class="stats">
+                <span class="stars" id="stars">★ –</span>
+                <span class="stat"><b>AR</b> <i id="stAR">–</i></span>
+                <span class="stat"><b>CS</b> <i id="stCS">–</i></span>
+                <span class="stat"><b>OD</b> <i id="stOD">–</i></span>
+                <span class="stat"><b>HP</b> <i id="stHP">–</i></span>
+                <span class="stat"><b>BPM</b> <i id="stBPM">–</i></span>
+            </div>
+        </div>
+
+        <div class="body" id="body">
+            <div class="section">
+                <div class="label-row">
+                    <span class="label">Моды</span>
+                    <label class="follow" title="Автоматически брать моды, выбранные в игре">
+                        <input type="checkbox" id="follow" checked /> как в игре
+                    </label>
+                    <button class="text-btn" id="clearMods" title="Убрать все моды">сброс</button>
+                </div>
+                <div class="mods" id="mods"></div>
+                <div class="rate hidden" id="rateRow">
+                    <span class="mini-label">Скорость</span>
+                    <input type="range" id="rate" min="0.5" max="2" step="0.01" value="1.5" />
+                    <span class="rate-val" id="rateVal">1.50x</span>
+                </div>
+                <div class="extra hidden" id="extraMods"></div>
+            </div>
+
+            <div class="section">
+                <div class="label-row">
+                    <span class="label">Точность</span>
+                    <span class="num-wrap"><input class="num" id="acc" type="number" min="0" max="100" step="0.01" value="100" />%</span>
+                </div>
+                <input type="range" id="accRange" min="80" max="100" step="0.01" value="100" />
+                <div class="chips">
+                    <button class="chip" data-acc="100">100</button>
+                    <button class="chip" data-acc="99">99</button>
+                    <button class="chip" data-acc="98">98</button>
+                    <button class="chip" data-acc="97">97</button>
+                    <button class="chip" data-acc="96">96</button>
+                    <button class="chip" data-acc="95">95</button>
+                </div>
+            </div>
+
+            <div class="section two">
+                <div>
+                    <div class="label-row">
+                        <span class="label">Макс. комбо</span>
+                    </div>
+                    <div class="combo-row">
+                        <input class="num wide" id="combo" type="number" min="0" step="1" value="0" />
+                        <span class="of">/ <span id="maxCombo">0</span>x</span>
+                        <button class="chip" id="fc" title="Фулл комбо">FC</button>
+                    </div>
+                    <input type="range" id="comboRange" min="0" max="1" step="1" value="1" />
+                </div>
+                <div>
+                    <div class="label-row"><span class="label">Миссы</span></div>
+                    <div class="stepper">
+                        <button class="step" id="missDec">−</button>
+                        <input class="num" id="misses" type="number" min="0" step="1" value="0" />
+                        <button class="step" id="missInc">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="result">
+            <div class="pp-main"><span id="pp">–</span><small>pp</small></div>
+            <div class="pp-sub" id="ppSub"></div>
+            <div class="pp-parts" id="ppParts"></div>
+            <div class="pp-table" id="ppTable"></div>
+            <div class="error hidden" id="error"></div>
+        </div>
+
+        <footer class="hint" id="hint"></footer>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>

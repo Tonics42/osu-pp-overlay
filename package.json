@@ -1,0 +1,72 @@
+{
+  "name": "osu-pp-overlay",
+  "productName": "osu! PP Overlay",
+  "version": "1.0.0",
+  "description": "In-game PP calculator overlay for osu!lazer (mods, accuracy, combo, misses)",
+  "author": "Tonics42",
+  "homepage": "https://github.com/Tonics42/osu-pp-overlay",
+  "main": "src/main.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "preview": "electron . --preview",
+    "dist": "electron-builder --win"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@asdf-overlay/core": "^2.0.13",
+    "@asdf-overlay/electron": "^2.0.13",
+    "@tosuapp/lazer-calculator-prebuilt": "0.6.1-20260729-main.0"
+  },
+  "devDependencies": {
+    "electron": "^43.7.5",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.tonics42.osu-pp-overlay",
+    "productName": "osu! PP Overlay",
+    "artifactName": "osu-pp-overlay-${version}-${os}-${arch}.${ext}",
+    "files": [
+      "src/**",
+      "ui/**",
+      "build/icon-256.png",
+      "package.json"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/@asdf-overlay/core/**",
+      "node_modules/@tosuapp/lazer-calculator-win32-x64/**"
+    ],
+    "electronLanguages": [
+      "en-US",
+      "ru"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "osu! PP Overlay",
+      "runAfterFinish": true,
+      "artifactName": "osu-pp-overlay-setup-${version}.${ext}"
+    }
+  }
+}
